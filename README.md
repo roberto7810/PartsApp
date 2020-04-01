@@ -1,21 +1,28 @@
-# PartsApp
-Parts Demo App for Database access.
+# Term Project – Backend System for Disaster Site Resources Locator Phase I – Conceptual Design (Based on the PartsApp example in class)
+Created by Roberto Hernandez, Blas Ayala and Nashali Rivera
 
-This simple app shows how to build a REST API for the backend of a database application using Flask. The Database engine is PostgreSQL. the application manages data from three tables:
-1. Parts - information about the parts in the system.
-2. Suppliers - information about the suppliers.
-3. Supplies - information on which suppliers supply a set of parts. 
+It was designed, implemented and tested the backend of an application used to manage resources on a Disaster Site, such as Puerto Rico after hurricane Maria, or the 2020 Guanica Earthquakes. The data in the application is managed by a relational database system, and exposed to client applications through a REST API. It was developed on Pycharm.
 
-The application is organized in three broad layers:
-1. Main - the main app module takes care to setup the routes for the REST API and calling the proper handler objects to process the request.
-2. Handlers - the handler modules takes care of implementing the logic of each REST call. In this sense, a handler is a Facade for accessing a given operation on a data collection. Each object handles a particular type of request for a data collection (e.g. Parts). The handlers rely upon the Data Access Objects (DAOs) to extact data from the database. The handlers encode the responses to the client with JSON and provide the appropriate HTTP response code.
-3. DAOs - the Data Access Objects (DAOs) take care of moving data in and out of the database engine by making SQL queries and wrapping the results in the objects and object list of appropriate types.
+It contains five tables:
+1.Items
+2.Inventory
+3.Person
+4.Privileges
+5.Cards
 
-## Requirements
-You need the following software installed to run this application:
-1. PostgreSQL - database engine
-2. Pyscopg2 - library to connect to PostgreSQL form Python
-3. PgAdmin3 - app to manage the databases 
-4. Flask - web bases framework to implement the REST API.
+And an ER Model representing the relationship between them. It also supports the following operations: 
+1. Register as a system administrator. 
+2. Register as a person in need of resources. 
+3. Register as a person that supplies resources.  
+4. Add a request for a given resource 
+5. Announce the availability of a resource. 
+6. Reserve or purchase a resource. Free resources are reserved.  Otherwise, they are purchased. 
+7. Browse resources being requested 
+8. Browse resources available 
+9. See detail of resources, including location on a Google Map 
+10. Keyword search resources being requested, with sorting by resource name 
+11. Keyword search resources available, with sorting by resource name 
+12. Show dashboard page with daily statistics on  a. Resources in need b. Resources available c. Matching between need and availability 13. Show dashboard page with trending statics (7 day period) on a. Resources in need b. Resources available c. Matching between need and availability 
+14. Show dashboard page with trending statics (8 Senate Regions in PR) on a. Resources in need b. Resources available 
+c. Matching between need and availability 
 
-Completed 11/30/17
