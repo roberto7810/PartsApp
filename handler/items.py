@@ -1,56 +1,69 @@
 from flask import jsonify
-from dao.parts import PartsDAO
+from dao.parts import ItemsDAO
 
 
-class PartHandler:
-    def build_part_dict(self, row):
+class ItemHandler:
+    def build_item_dict(self, row):
         result = {}
-        result['pid'] = row[0]
-        result['pname'] = row[1]
-        result['pmaterial'] = row[2]
-        result['pcolor'] = row[3]
-        result['pprice'] = row[4]
+        result['item_id'] = row[0]
+        result['resource_name'] = row[1]
+        result['brand'] = row[2]
+        result['item_latitud'] = row[3]
+        result['item_longitud'] = row[4]
+        result['expiration_date'] = row[5]
+        result['price'] = row[6]
+        result['type'] = row[7]
+        result['amount'] = row[8]
         return result
 
-    def build_supplier_dict(self, row):
+    def build_person_dict(self, row):
         result = {}
-        result['sid'] = row[0]
-        result['sname'] = row[1]
-        result['scity'] = row[2]
-        result['sphone'] = row[3]
+        result['person_id'] = row[0]
+        result['person_name'] = row[1]
+        result['person_latitud'] = row[2]
+        result['person_longitud'] = row[3]
+        result['phone_num'] = row[4]
+        result['card'] = row[5]
+        result['gender'] = row[6]
+        result['age'] = row[7]
         return result
 
-    def build_part_attributes(self, pid, pname, pcolor, pmaterial, pprice):
+    def build_part_attributes(self, item_id, resource_name, brand, item_latitud, item_longitud, expiration_date, price, type, amount):
         result = {}
-        result['pid'] = pid
-        result['pname'] = pname
-        result['pmaterial'] = pcolor
-        result['pcolor'] = pmaterial
-        result['pprice'] = pprice
+        result['item_id'] = item_id
+        result['resource_name'] = resource_name
+        result['brand'] = brand
+        result['item_latitud'] = item_latitud
+        result['item_longitud'] = item_longitud
+        result['expiration_date'] = expiration_date
+        result['price'] = price
+        result['type'] = type
+        result['amount'] = amount
         return result
 
-    def getAllParts(self):
-        dao = PartsDAO()
-        parts_list = dao.getAllParts()
+    def getAllItems(self):
+        dao = ItemsDAO()
+        parts_list = dao.getAllItems()
         result_list = []
         for row in parts_list:
-            result = self.build_part_dict(row)
+            result = self.build_item_dict(row)
             result_list.append(result)
-        return jsonify(Parts=result_list)
+        return jsonify(Items=result_list)
 
-    def getPartById(self, pid):
-        dao = PartsDAO()
-        row = dao.getPartById(pid)
+    def getItemById(self, item_id):
+        dao = ItemsDAO()
+        row = dao.getPartById(item_id)
         if not row:
-            return jsonify(Error = "Part Not Found"), 404
+            return jsonify(Error = "Item Not Found"), 404
         else:
-            part = self.build_part_dict(row)
-            return jsonify(Part = part)
+            item = self.build_part_dict(row)
+            return jsonify(Item = item)
 
-    def searchParts(self, args):
+##################################################################
+    def searchItems(self, args):
         color = args.get("color")
         material = args.get("material")
-        dao = PartsDAO()
+        dao = ItemsDAO()
         parts_list = []
         if (len(args) == 2) and color and material:
             parts_list = dao.getPartsByColorAndMaterial(color, material)
@@ -66,7 +79,7 @@ class PartHandler:
             result_list.append(result)
         return jsonify(Parts=result_list)
 
-    def getSuppliersByPartId(self, pid):
+    def getSuppliersByPId(self, pid):
         dao = PartsDAO()
         if not dao.getPartById(pid):
             return jsonify(Error="Part Not Found"), 404

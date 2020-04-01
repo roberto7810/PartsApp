@@ -1,6 +1,6 @@
 from config.dbconfig import pg_config
 import psycopg2
-class PartsDAO:
+class ItemsDAO:
     def __init__(self):
 
         connection_url = "dbname=%s user=%s password=%s" % (pg_config['dbname'],
@@ -8,22 +8,22 @@ class PartsDAO:
                                                             pg_config['passwd'])
         self.conn = psycopg2._connect(connection_url)
 
-    def getAllParts(self):
+    def getAllItems(self):
         cursor = self.conn.cursor()
-        query = "select pid, pname, pmaterial, pcolor, pprice from parts;"
+        query = "select item_id, resource_name, brand, item_latitud, item_longitud, expiration_date, price, type, amount from items;"
         cursor.execute(query)
         result = []
         for row in cursor:
             result.append(row)
         return result
 
-    def getPartById(self, pid):
+    def getItemById(self, item_id):
         cursor = self.conn.cursor()
-        query = "select pid, pname, pmaterial, pcolor, pprice from parts where pid = %s;"
-        cursor.execute(query, (pid,))
+        query = "select item_id, resource_name, brand, item_latitud, item_longitud, expiration_date, price, type, amount from items where item_id = %s;"
+        cursor.execute(query, (item_id,))
         result = cursor.fetchone()
         return result
-
+###############################################
     def getPartsByColor(self, color):
         cursor = self.conn.cursor()
         query = "select * from parts where pcolor = %s;"

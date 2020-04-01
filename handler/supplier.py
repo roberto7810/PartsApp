@@ -1,14 +1,18 @@
 from flask import jsonify
-from dao.supplier import SupplierDAO
+from dao.supplier import PersonDAO
 
 
 class SupplierHandler:
-    def build_supplier_dict(self, row):
+    def build_person_dict(self, row):
         result = {}
-        result['sid'] = row[0]
-        result['sname'] = row[1]
-        result['scity'] = row[2]
-        result['sphone'] = row[3]
+        result['person_id'] = row[0]
+        result['person_name'] = row[1]
+        result['person_latitud'] = row[2]
+        result['person_longitud'] = row[3]
+        result['phone_num'] = row[4]
+        result['card'] = row[5]
+        result['gender'] = row[6]
+        result['age'] = row[7]
         return result
 
     def build_part_dict(self, row):
@@ -23,28 +27,28 @@ class SupplierHandler:
 
     def getAllSuppliers(self):
 
-        dao = SupplierDAO()
-        suppliers_list = dao.getAllSuppliers()
+        dao = PersonDAO()
+        suppliers_list = dao.getAllPersons()
         result_list = []
         for row in suppliers_list:
-            result = self.build_supplier_dict(row)
+            result = self.build_person_dict(row)
             result_list.append(result)
-        return jsonify(Suppliers=result_list)
+        return jsonify(persons=result_list)
 
     def getSupplierById(self, sid):
 
-        dao = SupplierDAO()
+        dao = PersonDAO()
 
-        row = dao.getSupplierById(sid)
+        row = dao.getPersonById(sid)
         if not row:
-            return jsonify(Error="Supplier Not Found"), 404
+            return jsonify(Error="person Not Found"), 404
         else:
-            part = self.build_supplier_dict(row)
-        return jsonify(Part=part)
+            item = self.build_person_dict(row)
+        return jsonify(Item=item)
 
     def getPartsBySupplierId(self, sid):
-        dao = SupplierDAO()
-        if not dao.getSupplierById(sid):
+        dao = PersonDAO()
+        if not dao.getPersonById(sid):
             return jsonify(Error="Supplier Not Found"), 404
         parts_list = dao.getPartsBySupplierId(sid)
         result_list = []
