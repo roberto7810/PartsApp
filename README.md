@@ -1,4 +1,4 @@
-# Term Project – Backend System for Disaster Site Resources Locator Phase I – Conceptual Design (Based on the PartsApp example in class)
+# Term Project – Backend System for Disaster Site Resources Locator Phase II – Conceptual Design (Based on the PartsApp example in class)
 Created by Roberto Hernandez, Blas Ayala and Nashali Rivera
 
 It was designed, implemented and tested the backend of an application used to manage resources on a Disaster Site, such as Puerto Rico after hurricane Maria, or the 2020 Guanica Earthquakes. The data in the application is managed by a relational database system, and exposed to client applications through a REST API. It was developed on Pycharm.
